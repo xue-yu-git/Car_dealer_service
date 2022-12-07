@@ -2,22 +2,22 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 
 
-class SalesPersonList extends React.Component {
+class CustomersList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            SalespersonArray: [],
+            CustomerArray: [],
         };
     }
 
     async componentDidMount() {
-        const url = 'http://localhost:8090/api/salespersons/';
+        const url = 'http://localhost:8090/api/customers/';
 
         try {
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                this.setState({ SalespersonArray: data.salespersons });
+                this.setState({ CustomerArray: data.customers });
             }
         } catch (e) {
 
@@ -28,24 +28,26 @@ class SalesPersonList extends React.Component {
     render() {
         return (
             <div className="container">
-                <h2>All The Salesperson</h2>
+                <h2>All The Customer</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">Add A Salesperson</Link>
+                    <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">Add A Customer</Link>
                 </div>
                 <div>
                     <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>EMPLID</th>
+                                <th>PN</th>
+                                <th>Address</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.SalespersonArray.map((salesperson) => {
+                            {this.state.CustomerArray.map((customer) => {
                                 return (
-                                    <tr key={salesperson.emplid}>
-                                        <td>{salesperson.name}</td>
-                                        <td>{salesperson.emplid}</td>
+                                    <tr key={customer.id}>
+                                        <td>{customer.name}</td>
+                                        <td>{customer.number}</td>
+                                        <td>{customer.address}</td>
                                     </tr>
                                 );
                             })}
@@ -58,4 +60,4 @@ class SalesPersonList extends React.Component {
 
 }
 
-export default SalesPersonList;
+export default CustomersList;
