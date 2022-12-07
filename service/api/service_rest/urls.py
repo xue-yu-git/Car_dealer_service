@@ -10,33 +10,17 @@ from .views import (
 )
 
 urlpatterns = [
+    path("appointments/", api_list_appointment, name="api_list_appointment"),
+    path("technicians/", api_list_technician, name="api_list_technician"),
+    path("appointment/<int:pk>/", api_show_appointment, name="api_show_appointment"),
+    path("technicians/<int:pk>/", api_show_technician, name="api_show_technician"),
     path(
-        "/appointments/",
-        api_list_appointment,
-        name="api_list_appointment",
-    ),
-    path(
-        "/technicians/",
-        api_list_technician,
-        name="api_list_technician",
-    ),
-    path(
-        "/appointment/<int:pk>/",
-        api_show_appointment,
-        name="api_show_appointment",
-    ),
-    path(
-        "technicians/<int:pk>/",
-        api_show_technician,
-        name="api_show_technician",
-    ),
-    path(
-        "presentations/<int:pk>/finished/",
+        "appointment/<int:pk>/finished/",
         api_finished_appointment,
         name="api_finished_appointment",
     ),
     path(
-        "presentations/<int:pk>/canceled/",
+        "appointment/<int:pk>/canceled/",
         api_canceled_appointment,
         name="api_canceled_appointment",
     ),

@@ -11,17 +11,17 @@ django.setup()
 
 # Import models from service_rest, here.
 # from service_rest.models import Something
-from service_rest.models import AutomobileVO
+from service_rest.models import SoldCarsVO
 
 
-def get_auto():
-    response = requests.get("http://inventory-api:8000/api/automobiles/")
+def get_sold():
+    response = requests.get("http://inventory-api:8000/api/automobiles/sold/")
     content = json.loads(response.content)
-    for auto in content["autos"]:
-        AutomobileVO.objects.update_or_create(
-            import_href=auto["href"],
+    for sold in content["soldcars"]:
+        SoldCarsVO.objects.update_or_create(
+            import_href=sold["href"],
             defaults={
-                "vin": auto["vin"],
+                "vin": sold["vin"],
             },
         )
 
@@ -29,7 +29,7 @@ def get_auto():
 def poll():
     while True:
         try:
-            get_auto()
+            get_sold()
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)

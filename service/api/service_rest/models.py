@@ -2,9 +2,9 @@ from django.db import models
 from django.urls import reverse
 
 
-class AutomobileVO(models.Model):
+class SoldCarsVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True, blank=True)
-    vin = models.CharField(max_length=200, unique=True, null=True, blank=True)
+    import_vin = models.CharField(max_length=200, unique=True, null=True, blank=True)
 
 
 class Technician(models.Model):
@@ -19,12 +19,19 @@ class Technician(models.Model):
 
 
 class Appointment(models.Model):
+    vin = models.ForeignKey(
+        SoldCarsVO,
+        related_name="appointment",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
     name_customer = models.CharField(max_length=200)
     date = models.DateField(auto_now=False, auto_now_add=False)
     time = models.TimeField(auto_now=False, auto_now_add=False)
     technician = models.ForeignKey(
         Technician,
-        related_name="service",
+        related_name="appointment",
         on_delete=models.PROTECT,
     )
     reason = models.TextField()
@@ -36,12 +43,12 @@ class Appointment(models.Model):
         appointment.save()
         return appointment
 
-    def approve(self):
+    def cancel(self):
         status = Status.objects.get(name="CANCELED")
         self.status = status
         self.save()
 
-    def reject(self):
+    def finish(self):
         status = Status.objects.get(name="FINISHED")
         self.status = status
         self.save()
