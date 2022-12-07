@@ -31,6 +31,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     "service_rest.apps.ServiceRestConfig",
+    "django_crontab",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
