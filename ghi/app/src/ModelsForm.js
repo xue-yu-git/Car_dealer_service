@@ -13,7 +13,7 @@ class ModelForm extends React.Component {
         this.state = {
             picture_url: "",
             name: "",
-            manufacturer: "",
+            manufacturer_id: "",
             manufacturers: [],
         };
 
@@ -38,8 +38,13 @@ class ModelForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.manufacturers;
+<<<<<<< HEAD
 
         const ModelUrl = "http://localhost:8100/api/model/";
+=======
+        console.log(data)
+        const ModelUrl = "http://localhost:8100/api/models/";
+>>>>>>> cf0dd0a43375803fd293e3348e20fa0143877b4e
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
@@ -55,9 +60,9 @@ class ModelForm extends React.Component {
             this.setState({
                 picture_url: "",
                 name: "",
-                manufacturer: "",
+                manufacturer_id: "",
             });
-            this.props.useNavigate(`/model/`);
+            this.props.useNavigate(`/models/`);
         }
     }
 
@@ -73,7 +78,7 @@ class ModelForm extends React.Component {
     }
     handleChangeManufacturer(event) {
         const value = event.target.value;
-        this.setState({ manufacturer: value });
+        this.setState({ manufacturer_id: value });
     }
 
     render() {
