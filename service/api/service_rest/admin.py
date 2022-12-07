@@ -1,17 +1,22 @@
 from django.contrib import admin
-from .models import SoldCarsVO, Technician, Appointment
+from .models import SoldCarsVO, Technician, Appointment, Status
 
 
 @admin.register(SoldCarsVO)
-class PresentationAdmin(admin.ModelAdmin):
+class SoldCarsVOAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Appointment)
-class StatusAdmin(admin.ModelAdmin):
+class AppointmentAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Technician)
+class TechnicianAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     pass

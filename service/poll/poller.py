@@ -15,11 +15,11 @@ from service_rest.models import SoldCarsVO
 
 
 def get_sold():
-    response = requests.get("http://inventory-api:8000/api/automobiles/sold/")
+    response = requests.get("http://inventory-api:8000/api/sold/")
     content = json.loads(response.content)
-    for sold in content["soldcars"]:
+    for sold in content["sold"]:
         SoldCarsVO.objects.update_or_create(
-            import_href=sold["href"],
+            import_id=sold["id"],
             defaults={
                 "vin": sold["vin"],
             },

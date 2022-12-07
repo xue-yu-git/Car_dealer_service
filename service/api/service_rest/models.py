@@ -3,8 +3,8 @@ from django.urls import reverse
 
 
 class SoldCarsVO(models.Model):
-    import_href = models.CharField(max_length=200, unique=True, null=True, blank=True)
-    import_vin = models.CharField(max_length=200, unique=True, null=True, blank=True)
+    import_id = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    vin = models.CharField(max_length=200, unique=True, null=True, blank=True)
 
 
 class Technician(models.Model):
@@ -18,7 +18,22 @@ class Technician(models.Model):
         return reverse("api_show_technician", kwargs={"pk": self.pk})
 
 
+class Status(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True)
+    name = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Appointment(models.Model):
+    @classmethod
+    def create(cls, **kwargs):
+        kwargs["status"] = Status.objects.get(name="SUBMITTED")
+        appointment = cls(**kwargs)
+        appointment.save()
+        return appointment
+
     vin = models.ForeignKey(
         SoldCarsVO,
         related_name="appointment",
@@ -35,13 +50,13 @@ class Appointment(models.Model):
         on_delete=models.PROTECT,
     )
     reason = models.TextField()
-
-    @classmethod
-    def create(cls, **kwargs):
-        kwargs["status"] = Status.objects.get(name="SUBMITTED")
-        appointment = cls(**kwargs)
-        appointment.save()
-        return appointment
+    status = models.ForeignKey(
+        Status,
+        related_name="presentations",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
 
     def cancel(self):
         status = Status.objects.get(name="CANCELED")
@@ -58,11 +73,3 @@ class Appointment(models.Model):
 
     def get_api_url(self):
         return reverse("api_show_appointment", kwargs={"pk": self.pk})
-
-
-class Status(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True)
-    name = models.CharField(max_length=200, unique=True)
-
-    def __str__(self):
-        return self.name

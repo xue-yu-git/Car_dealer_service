@@ -9,17 +9,17 @@ from .models import SoldCarsVO, Technician, Appointment
 
 class TechnicianListEncoder(ModelEncoder):
     model = Technician
-    properties = ["name", "employee_num"]
+    properties = ["id", "name", "employee_num"]
 
 
 class TechnicianDetailEncoder(ModelEncoder):
     model = Technician
-    properties = ["name", "employee_num"]
+    properties = ["id", "name", "employee_num"]
 
 
 class SoldCarsVODetailEncoder(ModelEncoder):
     model = SoldCarsVO
-    properties = ["vin"]
+    properties = ["vin", "id"]
 
 
 class AppointmentListEncoder(ModelEncoder):
@@ -85,10 +85,10 @@ def api_show_technician(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
-def api_list_appointment(request, auto_vo_vin=None):
+def api_list_appointment(request, sold_vo_vin=None):
     if request.method == "GET":
-        if auto_vo_vin is not None:
-            appointments = Appointment.objects.filter(vin=auto_vo_vin)
+        if sold_vo_vin is not None:
+            appointments = Appointment.objects.filter(vin=sold_vo_vin)
         else:
             appointments = Appointment.objects.all()
         return JsonResponse(
@@ -98,9 +98,9 @@ def api_list_appointment(request, auto_vo_vin=None):
     else:
         content = json.loads(request.body)
         try:
-            soldcar_href = content["soldcar"]
-            bin = SoldCarsVO.objects.get(import_href=soldcar_href)
-            content["bin"] = bin
+            soldcar_id = content["sold_id"]
+            sold = SoldCarsVO.objects.get(soldcar_id=soldcar_id)
+            content["sold"] = sold
         except SoldCarsVO.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid soldcar href"},
@@ -128,9 +128,9 @@ def api_show_appointment(request, pk):
         content = json.loads(request.body)
         try:
             if "vin" in content:
-                auto_href = content["soldcar"]
-                soldcar = SoldCarsVO.objects.get(import_href=auto_href)
-                content["soldcar"] = soldcar
+                sold_id = content["sold_id"]
+                soldcar = SoldCarsVO.objects.get(id=sold_id)
+                content["sold"] = soldcar
         except SoldCarsVO.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid Soldcar information"},
