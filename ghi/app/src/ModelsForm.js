@@ -13,7 +13,7 @@ class ModelForm extends React.Component {
         this.state = {
             picture_url: "",
             name: "",
-            manufacturer: "",
+            manufacturer_id: "",
             manufacturers: [],
         };
 
@@ -38,8 +38,8 @@ class ModelForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.manufacturers;
-
-        const ModelUrl = "http://localhost:8090/api/model/";
+        console.log(data)
+        const ModelUrl = "http://localhost:8100/api/models/";
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
@@ -55,9 +55,9 @@ class ModelForm extends React.Component {
             this.setState({
                 picture_url: "",
                 name: "",
-                manufacturer: "",
+                manufacturer_id: "",
             });
-            this.props.useNavigate(`/model/`);
+            this.props.useNavigate(`/models/`);
         }
     }
 
@@ -73,7 +73,7 @@ class ModelForm extends React.Component {
     }
     handleChangeManufacturer(event) {
         const value = event.target.value;
-        this.setState({ manufacturer: value });
+        this.setState({ manufacturer_id: value });
     }
 
     render() {
@@ -85,7 +85,7 @@ class ModelForm extends React.Component {
                         <form onSubmit={this.handleSubmit} id="create-model-form">
                             <div className="form-floating mb-3">
                                 <input
-                                    onChange={this.handleChangePicture_url}
+                                    onChange={this.handleChangePictureUrl}
                                     value={this.state.picture_url}
                                     placeholder="Name"
                                     required
