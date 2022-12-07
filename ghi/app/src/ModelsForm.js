@@ -1,42 +1,79 @@
-import React from 'react';
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-class ModelsForm extends React.Component {
+function withExtras(Component) {
+    return (props) => (
+        <Component {...props} params={useParams()} useNavigate={useNavigate()} />
+    );
+}
+
+class ModelForm extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            name: '',
+            picture_url: "",
+            name: "",
+            manufacturer: "",
+            manufacturers: [],
         };
-        this.handleNameChange = this.handleNameChange.bind(this);
+
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangename = this.handleChangename.bind(this);
+        this.handleChangePictureUrl = this.handleChangePictureUrl.bind(this);
+        this.handleChangeManufacturer = this.handleChangeManufacturer.bind(this);
+    }
+
+    async componentDidMount() {
+        const url = "http://localhost:8100/api/manufacturers/";
+
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const data = await response.json();
+            this.setState({ manufacturers: data.manufacturers });
+        }
     }
 
     async handleSubmit(event) {
         event.preventDefault();
         const data = { ...this.state };
+        delete data.manufacturers;
 
-        const manufacturersUrl = 'http://localhost:8100/api/manufacturers/';
+        const ModelUrl = "http://localhost:8090/api/model/";
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
         };
-        const response = await fetch(manufacturersUrl, fetchConfig);
-        if (response.ok) {
-            const newManufacturersUrl = await response.json();
-            console.log(newManufacturersUrl);
+        const response = await fetch(ModelUrl, fetchConfig);
 
-            const cleared = {
-                name: '',
-            };
-            this.setState(cleared);
+        if (response.ok) {
+            let model_response = await response.json();
+
+            this.setState({
+                picture_url: "",
+                name: "",
+                manufacturer: "",
+            });
+            this.props.useNavigate(`/model/`);
         }
     }
 
-    handleNameChange(event) {
+
+    handleChangename(event) {
         const value = event.target.value;
-        this.setState({ name: value })
+        this.setState({ name: value });
+    }
+
+    handleChangePictureUrl(event) {
+        const value = event.target.value;
+        this.setState({ picture_url: value });
+    }
+    handleChangeManufacturer(event) {
+        const value = event.target.value;
+        this.setState({ manufacturer: value });
     }
 
     render() {
@@ -44,11 +81,52 @@ class ModelsForm extends React.Component {
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
-                        <h1>Create a new Manufacturer</h1>
-                        <form onSubmit={this.handleSubmit} id="create-location-form">
+                        <h1>Create a new Model</h1>
+                        <form onSubmit={this.handleSubmit} id="create-model-form">
                             <div className="form-floating mb-3">
-                                <input value={this.state.name} onChange={this.handleNameChange} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
-                                <label htmlFor="name">Name</label>
+                                <input
+                                    onChange={this.handleChangePicture_url}
+                                    value={this.state.picture_url}
+                                    placeholder="Name"
+                                    required
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    className="form-control"
+                                />
+                                <label htmlFor="name">Picture_url</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    onChange={this.handleChangename}
+                                    value={this.state.name}
+                                    placeholder="name"
+                                    required
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    className="form-control"
+                                />
+                                <label htmlFor="name">name</label>
+                            </div>
+                            <div className="mb-3">
+                                <select
+                                    onChange={this.handleChangeManufacturer}
+                                    value={this.state.manufacturer}
+                                    required
+                                    name="manufacturer"
+                                    id="manufacturer"
+                                    className="form-select"
+                                >
+                                    <option value="">Choose a manufacturer</option>
+                                    {this.state.manufacturers.map((manufacturer) => {
+                                        return (
+                                            <option key={manufacturer.id} value={manufacturer.id}>
+                                                {manufacturer.name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
                             </div>
                             <button className="btn btn-primary">Create</button>
                         </form>
@@ -59,4 +137,4 @@ class ModelsForm extends React.Component {
     }
 }
 
-export default ModelsForm;
+export default withExtras(ModelForm);

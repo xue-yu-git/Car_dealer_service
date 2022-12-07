@@ -53,7 +53,7 @@ class AutomobileForm extends React.Component {
 
         if (response.ok) {
             let automobile_response = await response.json();
-            console.log(automobile_response)
+
             this.setState({
                 year: "",
                 vin: "",
@@ -139,7 +139,7 @@ class AutomobileForm extends React.Component {
                                     id="model"
                                     className="form-select"
                                 >
-                                    <option value="">Choose a model</option>
+                                    <option value="">Choose a manufacturer</option>
                                     {this.state.models.map((model) => {
                                         return (
                                             <option key={model.id} value={model.id}>
