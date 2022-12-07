@@ -24,7 +24,7 @@ class SoldCarsVODetailEncoder(ModelEncoder):
 
 class AppointmentListEncoder(ModelEncoder):
     model = Appointment
-    properties = ["title"]
+    properties = ["name_customer"]
 
 
 class AppointmentDetailEncoder(ModelEncoder):
@@ -39,8 +39,8 @@ class AppointmentDetailEncoder(ModelEncoder):
         "technician": TechnicianListEncoder(),
     }
 
-    def get_extra_data(self, o):
-        return {"status": o.status.name}
+    # def get_extra_data(self, o):
+    #     return {"status": o.status.name}
 
 
 @require_http_methods(["GET", "POST"])
@@ -97,6 +97,7 @@ def api_list_appointment(request, sold_vo_vin=None):
         )
     else:
         content = json.loads(request.body)
+        print(content)
         try:
             soldcar_id = content["sold_id"]
             sold = SoldCarsVO.objects.get(soldcar_id=soldcar_id)
@@ -108,6 +109,7 @@ def api_list_appointment(request, sold_vo_vin=None):
             )
 
         appointment = Appointment.objects.create(**content)
+
         return JsonResponse(
             appointment,
             encoder=AppointmentDetailEncoder,

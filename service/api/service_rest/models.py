@@ -52,7 +52,7 @@ class Appointment(models.Model):
     reason = models.TextField()
     status = models.ForeignKey(
         Status,
-        related_name="presentations",
+        related_name="appointment",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
@@ -69,7 +69,7 @@ class Appointment(models.Model):
         self.save()
 
     def __str__(self):
-        return self.name
+        return self.name_customer
 
     def get_api_url(self):
         return reverse("api_show_appointment", kwargs={"pk": self.pk})
