@@ -39,7 +39,7 @@ class ModelForm extends React.Component {
         const data = { ...this.state };
         delete data.manufacturers;
 
-        const ModelUrl = "http://localhost:8100/api/model/";
+        const ModelUrl = "http://localhost:8100/api/models/";
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
