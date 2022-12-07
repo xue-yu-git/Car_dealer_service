@@ -1,25 +1,26 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import React from 'react';
 
 
-class ManufacturersList extends React.Component {
+class SalesPersonList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ManufacturersArray: [],
+            SalespersonArray: [],
         };
     }
 
     async componentDidMount() {
-        const url = 'http://localhost:8100/api/manufacturers/';
+        const url = 'http://localhost:8090/api/salespersons/';
 
         try {
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
-                this.setState({ ManufacturersArray: data.manufacturers });
+                this.setState({ SalespersonArray: data.salespersons });
             }
         } catch (e) {
+
             console.error(e);
         }
     }
@@ -27,10 +28,10 @@ class ManufacturersList extends React.Component {
     render() {
         return (
             <div className="container">
-                <h2>All The Manufacturers</h2>
-                <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="/manufacturers/new" className="btn btn-primary btn-lg px-4 gap-3">Add A Manufacturers</Link>
-                </div>
+                <h2>All The Salesperson</h2>
+                {/* <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
+                    <Link to="/manufacturers/new" className="btn btn-primary btn-lg px-4 gap-3">Add A Salesperson</Link>
+                </div> */}
                 <div>
                     <table className="table table-striped">
                         <thead>
@@ -39,10 +40,10 @@ class ManufacturersList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.ManufacturersArray.map((manu) => {
+                            {this.state.SalespersonArray.map((salesperson) => {
                                 return (
-                                    <tr key={manu.href}>
-                                        <td>{manu.name}</td>
+                                    <tr key={salesperson.name}>
+                                        <td>{salesperson.name}</td>
                                     </tr>
                                 );
                             })}
@@ -55,4 +56,4 @@ class ManufacturersList extends React.Component {
 
 }
 
-export default ManufacturersList;
+export default SalesPersonList;
