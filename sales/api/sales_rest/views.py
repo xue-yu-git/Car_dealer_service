@@ -14,7 +14,7 @@ from .encoders import (
 
 
 
-from .models import AutomobileVO, Salesperson, Customer, Sale,
+from .models import AutomobileVO, Salesperson, Customer, Sale
 # Create your views here.
 
 @require_http_methods(["GET", "POST"])
