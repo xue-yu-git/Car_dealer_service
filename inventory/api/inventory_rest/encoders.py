@@ -1,6 +1,6 @@
 from common.json import ModelEncoder
 
-from .models import Automobile, Manufacturer, VehicleModel
+from .models import Automobile, Manufacturer, VehicleModel, SoldCars
 
 
 class ManufacturerEncoder(ModelEncoder):
@@ -36,3 +36,10 @@ class AutomobileEncoder(ModelEncoder):
     encoders = {
         "model": VehicleModelEncoder(),
     }
+
+class SoldEncoder(ModelEncoder):
+    model = SoldCars
+    properties = [
+        "id",
+        "vin",
+    ]

@@ -6,8 +6,9 @@ from .encoders import (
     AutomobileEncoder,
     ManufacturerEncoder,
     VehicleModelEncoder,
+    SoldEncoder
 )
-from .models import Automobile, Manufacturer, VehicleModel
+from .models import Automobile, Manufacturer, VehicleModel, SoldCars
 
 
 @require_http_methods(["GET", "POST"])
@@ -55,6 +56,8 @@ def api_automobile(request, vin):
     elif request.method == "DELETE":
         try:
             auto = Automobile.objects.get(vin=vin)
+            content = {"vin": vin}
+            SoldCars.objects.create(**content)
             auto.delete()
             return JsonResponse(
                 auto,
@@ -226,3 +229,12 @@ def api_vehicle_model(request, pk):
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
             return response
+
+@require_http_methods(["GET", "POST"])
+def api_soldcars(request):
+    if request.method == "GET":
+        sold = SoldCars.objects.all()
+        return JsonResponse(
+            {"sold": sold},
+            encoder=SoldEncoder,
+        )
