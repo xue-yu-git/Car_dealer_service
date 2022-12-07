@@ -24,7 +24,15 @@ class SoldCarsVODetailEncoder(ModelEncoder):
 
 class AppointmentListEncoder(ModelEncoder):
     model = Appointment
-    properties = ["title"]
+    properties = [
+        "name_customer",
+        "date",
+        "time",
+        "technician",
+    ]
+    encoders = {
+        "technician": TechnicianListEncoder(),
+    }
 
 
 class AppointmentDetailEncoder(ModelEncoder):
@@ -119,6 +127,7 @@ def api_list_appointment(request, sold_vo_vin=None):
 def api_show_appointment(request, pk):
     if request.method == "GET":
         appointment = Appointment.objects.get(id=pk)
+
         return JsonResponse(
             appointment,
             encoder=AppointmentDetailEncoder,

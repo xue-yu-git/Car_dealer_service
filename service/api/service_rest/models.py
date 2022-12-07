@@ -42,8 +42,7 @@ class Appointment(models.Model):
         blank=True,
     )
     name_customer = models.CharField(max_length=200)
-    date = models.DateField(auto_now=False, auto_now_add=False)
-    time = models.TimeField(auto_now=False, auto_now_add=False)
+    date = models.DateTimeField(auto_now=False, auto_now_add=False)
     technician = models.ForeignKey(
         Technician,
         related_name="appointment",
@@ -52,24 +51,14 @@ class Appointment(models.Model):
     reason = models.TextField()
     status = models.ForeignKey(
         Status,
-        related_name="presentations",
+        related_name="appointment",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
 
-    def cancel(self):
-        status = Status.objects.get(name="CANCELED")
-        self.status = status
-        self.save()
-
-    def finish(self):
-        status = Status.objects.get(name="FINISHED")
-        self.status = status
-        self.save()
-
     def __str__(self):
-        return self.name
+        return self.name_customer
 
     def get_api_url(self):
         return reverse("api_show_appointment", kwargs={"pk": self.pk})
