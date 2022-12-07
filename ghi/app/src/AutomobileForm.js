@@ -14,7 +14,7 @@ class AutomobileForm extends React.Component {
             year: "",
             vin: "",
             color: "",
-            model: "",
+            model_id: "",
             models: [],
         };
 
@@ -53,12 +53,12 @@ class AutomobileForm extends React.Component {
 
         if (response.ok) {
             let automobile_response = await response.json();
-
+            console.log(automobile_response)
             this.setState({
                 year: "",
                 vin: "",
                 color: "",
-                model: "",
+                model_id: "",
             });
             this.props.useNavigate(`/automobiles/`);
         }
@@ -81,7 +81,7 @@ class AutomobileForm extends React.Component {
     }
     handleChangeModel(event) {
         const value = event.target.value;
-        this.setState({ model: value });
+        this.setState({ model_id: value });
     }
 
     render() {
@@ -133,7 +133,7 @@ class AutomobileForm extends React.Component {
                             <div className="mb-3">
                                 <select
                                     onChange={this.handleChangeModel}
-                                    value={this.state.model}
+                                    value={this.state.model_id}
                                     required
                                     name="model"
                                     id="model"

@@ -16,7 +16,6 @@ def get_automobile():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
     for auto in content["autos"]:
-        print(auto)
         AutomobileVO.objects.update_or_create(
             import_href=auto["href"],
             defaults={

@@ -113,7 +113,7 @@ class ModelForm extends React.Component {
                             <div className="mb-3">
                                 <select
                                     onChange={this.handleChangeManufacturer}
-                                    value={this.state.manufacturer}
+                                    value={this.state.manufacturer_id}
                                     required
                                     name="manufacturer"
                                     id="manufacturer"
