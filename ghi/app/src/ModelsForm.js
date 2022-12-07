@@ -94,7 +94,7 @@ class ModelForm extends React.Component {
                                     id="name"
                                     className="form-control"
                                 />
-                                <label htmlFor="name">Picture_url</label>
+                                <label htmlFor="name">Picture Url</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -107,7 +107,7 @@ class ModelForm extends React.Component {
                                     id="name"
                                     className="form-control"
                                 />
-                                <label htmlFor="name">name</label>
+                                <label htmlFor="name">Name</label>
                             </div>
                             <div className="mb-3">
                                 <select
@@ -118,7 +118,7 @@ class ModelForm extends React.Component {
                                     id="manufacturer"
                                     className="form-select"
                                 >
-                                    <option value="">Choose a manufacturer</option>
+                                    <option value="">Choose a Manufacturer</option>
                                     {this.state.manufacturers.map((manufacturer) => {
                                         return (
                                             <option key={manufacturer.id} value={manufacturer.id}>
