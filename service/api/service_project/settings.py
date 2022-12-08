@@ -83,6 +83,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
+CRONJOBS = [
+    ("* * * * *", "service.poll.poller.get_sold"),
+]
+
 DJWTO_MODE = "TWO-COOKIES"
 DJWTO_ACCESS_TOKEN_LIFETIME = None
 

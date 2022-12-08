@@ -32,7 +32,6 @@ class AppointmentList extends React.Component {
                     soldvin.push(car.vin)
                 }
                 for (let app of appointments) {
-                    console.log(app.vin)
                     if (soldvin.includes(app.vin)) {
                         app["vip"] = "VIP"
                     } else {
