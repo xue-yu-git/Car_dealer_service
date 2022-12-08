@@ -20,13 +20,14 @@ class Technician(models.Model):
 
 class Appointment(models.Model):
 
-    vin = models.ForeignKey(
-        SoldCarsVO,
-        related_name="appointment",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
+    # vin = models.ForeignKey(
+    #     SoldCarsVO,
+    #     related_name="appointment",
+    #     on_delete=models.PROTECT,
+    #     null=True,
+    #     blank=True,
+    # )
+    vin = models.CharField(max_length=200, unique=True, null=True, blank=True)
     name_customer = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
     # date = models.CharField(max_length=200)
@@ -46,6 +47,7 @@ class Appointment(models.Model):
         (finished, "finished"),
     )
     status = models.CharField(max_length=200, choices=CHOICES, default="submitted")
+    sold_here = models.BooleanField(null=True, default=False)
 
     def __str__(self):
         return self.name_customer

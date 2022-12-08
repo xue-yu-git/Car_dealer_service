@@ -9,6 +9,7 @@ from .views import (
 
 urlpatterns = [
     path("appointments/", api_list_appointment, name="api_list_appointment"),
+    path("vin/appointments/", api_list_appointment, name="api_list_appointment"),
     path("technicians/", api_list_technician, name="api_list_technician"),
     path("appointment/<int:pk>/", api_show_appointment, name="api_show_appointment"),
     path("technicians/<int:pk>/", api_show_technician, name="api_show_technician"),

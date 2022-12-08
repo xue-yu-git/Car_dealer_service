@@ -17,7 +17,7 @@ class TechnicianDetailEncoder(ModelEncoder):
     properties = ["id", "name", "employee_num"]
 
 
-class SoldCarsVODetailEncoder(ModelEncoder):
+class SoldCarsVOListEncoder(ModelEncoder):
     model = SoldCarsVO
     properties = ["vin", "id"]
 
@@ -25,9 +25,14 @@ class SoldCarsVODetailEncoder(ModelEncoder):
 class AppointmentListEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
+        "vin",
         "name_customer",
         "date",
         "technician",
+        "reason",
+        "status",
+        "sold_here",
     ]
     encoders = {
         "technician": TechnicianListEncoder(),
@@ -37,12 +42,14 @@ class AppointmentListEncoder(ModelEncoder):
 class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
         "vin",
         "name_customer",
         "date",
         "technician",
         "reason",
         "status",
+        "sold_here",
     ]
     encoders = {
         "technician": TechnicianListEncoder(),
@@ -91,10 +98,10 @@ def api_show_technician(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
-def api_list_appointment(request, sold_vo_vin=None):
+def api_list_appointment(request, vin=None):
     if request.method == "GET":
-        if sold_vo_vin is not None:
-            appointments = Appointment.objects.filter(vin=sold_vo_vin)
+        if vin is not None:
+            appointments = Appointment.objects.filter(vin=vin)
         else:
             appointments = Appointment.objects.all()
         return JsonResponse(
@@ -103,14 +110,21 @@ def api_list_appointment(request, sold_vo_vin=None):
         )
     else:
         content = json.loads(request.body)
-        print(content)
+        # try:
+        #     soldcar_id = content["sold_id"]
+        #     sold = SoldCarsVO.objects.get(soldcar_id=soldcar_id)
+        #     content["sold"] = sold
+        # except SoldCarsVO.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid soldcar href"},
+        #         status=400,
+        #     )
         try:
-            soldcar_id = content["sold_id"]
-            sold = SoldCarsVO.objects.get(soldcar_id=soldcar_id)
-            content["sold"] = sold
-        except SoldCarsVO.DoesNotExist:
+            technician = Technician.objects.get(id=content["technician_id"])
+            content["technician"] = technician
+        except Technician.DoesNotExist:
             return JsonResponse(
-                {"message": "Invalid soldcar href"},
+                {"message": "Invalid technician id"},
                 status=400,
             )
 
@@ -135,16 +149,25 @@ def api_show_appointment(request, pk):
         )
     else:
         content = json.loads(request.body)
-        try:
-            if "vin" in content:
-                sold_id = content["sold_id"]
-                soldcar = SoldCarsVO.objects.get(id=sold_id)
-                content["sold"] = soldcar
-        except SoldCarsVO.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid Soldcar information"},
-                status=400,
-            )
+        # try:
+        #     if "vin" in content:
+        #         sold_id = content["sold_id"]
+        #         soldcar = SoldCarsVO.objects.get(id=sold_id)
+        #         content["sold"] = soldcar
+        # except SoldCarsVO.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid Soldcar information"},
+        #         status=400,
+        #     )
+        # try:
+        if "technician" in content:
+            technician = Technician.objects.get(id=content["technician"])
+            content["technician"] = technician
+        # except Technician.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid technician id"},
+        #         status=400,
+        #     )
         Appointment.objects.filter(id=pk).update(**content)
         appointment = Appointment.objects.get(id=pk)
         return JsonResponse(
