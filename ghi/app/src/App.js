@@ -12,7 +12,8 @@ import SalespersonForm from './sales/SalesPersonForm';
 import CustomersList from './sales/CustomersList';
 import CustomersForm from './sales/CustomersForm';
 import SalesList from './sales/SalesList';
-
+import TechnicianForm from './service/TechnicianForm';
+import TechnicianList from './service/TechnicianList';
 
 function App() {
   return (
