@@ -5,8 +5,10 @@ class TechnicianForm extends React.Component {
         super(props)
         this.state = {
             name: '',
+            employee_num: '',
         };
         this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleEmployeenumChange = this.handleEmployeenumChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -14,21 +16,23 @@ class TechnicianForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
 
-        const manufacturersUrl = 'http://localhost:8100/api/manufacturers/';
+        const technicianUrl = 'http://localhost:8080/api/technicians/';
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
             },
         };
-        const response = await fetch(manufacturersUrl, fetchConfig);
-        if (response.ok) {
-            const newManufacturersUrl = await response.json();
-            console.log(newManufacturersUrl);
+        const techresponse = await fetch(technicianUrl, fetchConfig);
+        if (techresponse.ok) {
+            const response = await techresponse.json();
+            console.log(response);
 
             const cleared = {
                 name: '',
+                employee_num: '',
             };
             this.setState(cleared);
         }
@@ -38,17 +42,25 @@ class TechnicianForm extends React.Component {
         const value = event.target.value;
         this.setState({ name: value })
     }
+    handleEmployeenumChange(event) {
+        const value = event.target.value;
+        this.setState({ employee_num: value })
+    }
 
     render() {
         return (
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
-                        <h1>Create a new Manufacturer</h1>
+                        <h1>Create a new Technician</h1>
                         <form onSubmit={this.handleSubmit} id="create-location-form">
                             <div className="form-floating mb-3">
                                 <input value={this.state.name} onChange={this.handleNameChange} placeholder="Name" required type="text" name="name" id="name" className="form-control" />
                                 <label htmlFor="name">Name</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input value={this.state.employee_num} onChange={this.handleEmployeenumChange} placeholder="Employee Number" required type="text" name="employee_num" id="employee_num" className="form-control" />
+                                <label htmlFor="employee_num">Employee Number</label>
                             </div>
                             <button className="btn btn-primary">Create</button>
                         </form>
@@ -59,4 +71,4 @@ class TechnicianForm extends React.Component {
     }
 }
 
-export default ManufacturersForm;
+export default TechnicianForm;
