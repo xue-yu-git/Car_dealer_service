@@ -9,11 +9,6 @@ from .encoders import (
     SaleEncoder
 )
 
-
-
-
-
-
 from .models import AutomobileVO, Salesperson, Customer, Sale
 # Create your views here.
 
@@ -139,3 +134,12 @@ def api_delete_sales(request,pk):
             )
         except SaleEncoder.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
+
+@require_http_methods("GET")
+def api_automobilesVO(request):
+    if request.method == "GET":
+        automobiles = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"automobiles": automobiles},
+            encoder=AutomobileVOEncoder,
+        )
