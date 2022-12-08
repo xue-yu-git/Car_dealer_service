@@ -18,21 +18,7 @@ class Technician(models.Model):
         return reverse("api_show_technician", kwargs={"pk": self.pk})
 
 
-class Status(models.Model):
-    id = models.PositiveSmallIntegerField(primary_key=True)
-    name = models.CharField(max_length=200, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Appointment(models.Model):
-    @classmethod
-    def create(cls, **kwargs):
-        kwargs["status"] = Status.objects.get(name="SUBMITTED")
-        appointment = cls(**kwargs)
-        appointment.save()
-        return appointment
 
     vin = models.ForeignKey(
         SoldCarsVO,
@@ -43,19 +29,23 @@ class Appointment(models.Model):
     )
     name_customer = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    # date = models.CharField(max_length=200)
     technician = models.ForeignKey(
         Technician,
         related_name="appointment",
         on_delete=models.PROTECT,
     )
     reason = models.TextField()
-    status = models.ForeignKey(
-        Status,
-        related_name="appointment",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
+
+    submitted = "submitted"
+    canceled = "canceled"
+    finished = "finished"
+    CHOICES = (
+        (submitted, "submitted"),
+        (canceled, "canceled"),
+        (finished, "finished"),
     )
+    status = models.CharField(max_length=200, choices=CHOICES, default="submitted")
 
     def __str__(self):
         return self.name_customer

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SoldCarsVO, Technician, Appointment, Status
+from .models import SoldCarsVO, Technician, Appointment
 
 
 @admin.register(SoldCarsVO)
@@ -14,9 +14,4 @@ class AppointmentAdmin(admin.ModelAdmin):
 
 @admin.register(Technician)
 class TechnicianAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Status)
-class StatusAdmin(admin.ModelAdmin):
     pass
