@@ -56,6 +56,15 @@ class AppointmentDetailEncoder(ModelEncoder):
     }
 
 
+@require_http_methods(["GET"])
+def api_list_soldcars(request):
+    soldcars = SoldCarsVO.objects.all()
+    return JsonResponse(
+        {"soldcars": soldcars},
+        encoder=SoldCarsVOListEncoder,
+    )
+
+
 @require_http_methods(["GET", "POST"])
 def api_list_technician(request):
     if request.method == "GET":
@@ -98,12 +107,9 @@ def api_show_technician(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
-def api_list_appointment(request, vin=None):
+def api_list_appointment(request):
     if request.method == "GET":
-        if vin is not None:
-            appointments = Appointment.objects.filter(vin=vin)
-        else:
-            appointments = Appointment.objects.all()
+        appointments = Appointment.objects.all()
         return JsonResponse(
             {"appointments": appointments},
             encoder=AppointmentListEncoder,

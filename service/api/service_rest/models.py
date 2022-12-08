@@ -27,7 +27,7 @@ class Appointment(models.Model):
     #     null=True,
     #     blank=True,
     # )
-    vin = models.CharField(max_length=200, unique=True, null=True, blank=True)
+    vin = models.CharField(max_length=200, null=True, blank=True)
     name_customer = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
     # date = models.CharField(max_length=200)
