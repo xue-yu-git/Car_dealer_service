@@ -14,21 +14,38 @@ class AppointmentList extends React.Component {
 
     async componentDidMount() {
         const url = 'http://localhost:8080/api/appointments/';
-
+        const soldcarurl = `http://localhost:8080/api/soldcars/`;
         try {
             const response = await fetch(url);
+            const soldcarresponse = await fetch(soldcarurl);
             if (response.ok) {
                 const data = await response.json();
+                const soldcar = await soldcarresponse.json();
 
                 const appointmentsarray = data.appointments;
-                const appointments = appointmentsarray.filter(appoint => appoint.status === "submitted")
-                console.log(appointments)
+                const appointments = appointmentsarray.filter(appoint => appoint.status === "submitted");
+
+                const soldcararray = soldcar.soldcars;
+                // get all the vins of the soldcars in an array
+                let soldvin = [];
+                for (let car of soldcararray) {
+                    soldvin.push(car.vin)
+                }
+                for (let app of appointments) {
+                    console.log(app.vin)
+                    if (soldvin.includes(app.vin)) {
+                        app["vip"] = "VIP"
+                    } else {
+                        app["vip"] = ""
+                    }
+                }
                 this.setState({ AppointmentArray: appointments });
             }
         } catch (e) {
             console.error(e);
         }
     }
+
     async handleCancel(appointment, event) {
         event.preventDefault();
         const data = { "status": "canceled" };
@@ -71,6 +88,9 @@ class AppointmentList extends React.Component {
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
                     <Link to="/appointments/new" className="btn btn-primary btn-lg px-4 gap-3">Add An Appointment</Link>
                 </div>
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
+                    <Link to="/appointments/history" className="btn btn-primary btn-lg px-4 gap-3">Check Appointment History for a Car</Link>
+                </div>
                 <div>
                     <table className="table table-striped">
                         <thead>
@@ -93,7 +113,7 @@ class AppointmentList extends React.Component {
                                         <td>{appointment.date}</td>
                                         <td>{appointment.technician.name}</td>
                                         <td>{appointment.reason}</td>
-                                        <td>{appointment.sold_here}</td>
+                                        <td>{appointment.vip}</td>
                                         <td>
                                             <button onClick={this.handleCancel.bind(this, appointment)}>Cancel</button>
                                             <button onClick={this.handleFinish.bind(this, appointment)}>Finished</button>
