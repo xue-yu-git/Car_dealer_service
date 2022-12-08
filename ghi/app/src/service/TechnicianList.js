@@ -13,7 +13,6 @@ class TechnicianList extends React.Component {
     async componentDidMount() {
         const tech_url = 'http://localhost:8080/api/technicians/';
         try {
-            console.log("adffddfeeeeee");
             const response = await fetch(tech_url);
 
             if (response.ok) {

@@ -238,3 +238,18 @@ def api_soldcars(request):
             {"sold": sold},
             encoder=SoldEncoder,
         )
+    else:
+        try:
+            content = json.loads(request.body)
+            sold = SoldCars.objects.create(**content)
+            return JsonResponse(
+                sold,
+                encoder=SoldEncoder,
+                safe=False,
+            )
+        except:
+            response = JsonResponse(
+                {"message": "Could not create sold car"}
+            )
+            response.status_code = 400
+            return response

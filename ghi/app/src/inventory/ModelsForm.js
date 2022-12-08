@@ -38,7 +38,6 @@ class ModelForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.manufacturers;
-        console.log(data)
         const ModelUrl = "http://localhost:8100/api/models/";
         const fetchConfig = {
             method: "post",

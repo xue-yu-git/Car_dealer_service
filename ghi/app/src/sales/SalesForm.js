@@ -63,18 +63,45 @@ class SaleForm extends React.Component {
                 "Content-Type": "application/json",
             },
         };
+        console.log("sales post fetch", fetchConfig)
         const salePostResponse = await fetch(saleUrl, fetchConfig);
 
         if (salePostResponse.ok) {
+
             let sale_response = await salePostResponse.json();
-            console.log(sale_response)
-            this.setState({
-                price: "",
-                customer_id: "",
-                salesperson_id: "",
-                automobile_id: "",
-            });
-            this.props.useNavigate(`/sales/`);
+            let vin = sale_response.automobile.vin
+
+            const deleteURL = `http://localhost:8100/api/automobiles/${vin}`;
+            const fetchConfig = { method: "delete", };
+            const inventoryDeleteResponse = await fetch(deleteURL, fetchConfig);
+
+            if (inventoryDeleteResponse.ok) {
+                let postInfo = { 'vin': vin }
+                console.log("post info", postInfo)
+                const soldPostURL = `http://localhost:8100/api/sold/`;
+                const fetchConfig = {
+                    method: "post",
+                    body: JSON.stringify(postInfo),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+                console.log(" sold car fetch info", fetchConfig)
+                const soldPostResponse = await fetch(soldPostURL, fetchConfig);
+
+                if (soldPostResponse.ok) {
+                    console.log('good')
+                    this.setState({
+                        price: "",
+                        customer_id: "",
+                        salesperson_id: "",
+                        automobile_id: "",
+                    });
+                    this.props.useNavigate(`/sales/`);
+                }
+            }
+
+
         }
     }
 

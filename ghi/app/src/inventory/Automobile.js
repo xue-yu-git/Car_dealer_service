@@ -17,7 +17,6 @@ class AutomobileList extends React.Component {
             if (response.ok) {
                 // Get the list
                 const data = await response.json();
-                console.log(data)
 
                 // Create a list of for all the requests and
                 // add all of the requests to it
