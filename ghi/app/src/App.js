@@ -1,19 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
-import ManufacturersList from './ManufacturersList';
-import ManufacturersForm from './ManufacturerForm';
-import AutomobileList from './Automobile';
-import AutomobilesForm from './AutomobileForm';
-import ModelsList from './ModelsList';
-import ModelsForm from './ModelsForm';
-import SalesPersonList from './SalesPersonList';
-import SalespersonForm from './SalesPersonForm';
-import CustomersList from './CustomersList';
-import CustomersForm from './CustomersForm';
-import SalesList from './SalesList';
-import TechnicianForm from './TechnicianForm';
-import TechnicianList from './TechnicianList';
+import ManufacturersList from './inventory/ManufacturersList';
+import ManufacturersForm from './inventory/ManufacturerForm';
+import AutomobileList from './inventory/Automobile';
+import AutomobilesForm from './inventory/AutomobileForm';
+import ModelsList from './inventory/ModelsList';
+import ModelsForm from './inventory/ModelsForm';
+import SalesPersonList from './sales/SalesPersonList';
+import SalespersonForm from './sales/SalesPersonForm';
+import CustomersList from './sales/CustomersList';
+import CustomersForm from './sales/CustomersForm';
+import SalesList from './sales/SalesList';
 
 
 function App() {
