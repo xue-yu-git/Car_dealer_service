@@ -45,7 +45,6 @@ class AppointmentForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.technicians;
-        console.log(data)
         const appUrl = 'http://localhost:8080/api/appointments/';
         const fetchConfig = {
             method: "post",
@@ -108,7 +107,7 @@ class AppointmentForm extends React.Component {
                             </div>
                             <div className="form-floating mb-3">
                                 <input value={this.state.date} onChange={this.handleDateChange} placeholder="Date" required type="text" name="date" id="date" className="form-control" />
-                                <label htmlFor="date">Date</label>
+                                <label htmlFor="date">Date Time</label>
                             </div>
                             <div className="mb-3">
                                 <select value={this.state.technician_id} onChange={this.handleTechnicianChange} id="technician" className="form-select"  >

@@ -20,13 +20,6 @@ class Technician(models.Model):
 
 class Appointment(models.Model):
 
-    # vin = models.ForeignKey(
-    #     SoldCarsVO,
-    #     related_name="appointment",
-    #     on_delete=models.PROTECT,
-    #     null=True,
-    #     blank=True,
-    # )
     vin = models.CharField(max_length=200, null=True, blank=True)
     name_customer = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now=False, auto_now_add=False)

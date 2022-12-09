@@ -1,4 +1,11 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
+function withExtras(Component) {
+    return (props) => (
+        <Component {...props} useNavigate={useNavigate()} />
+    );
+}
 
 class TechnicianForm extends React.Component {
     constructor(props) {
@@ -22,19 +29,18 @@ class TechnicianForm extends React.Component {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
             },
         };
         const techresponse = await fetch(technicianUrl, fetchConfig);
         if (techresponse.ok) {
             const response = await techresponse.json();
-            console.log(response);
-
             const cleared = {
                 name: '',
                 employee_num: '',
             };
             this.setState(cleared);
+            this.props.useNavigate(`/technicians`);
         }
     }
 
@@ -71,4 +77,4 @@ class TechnicianForm extends React.Component {
     }
 }
 
-export default TechnicianForm;
+export default withExtras(TechnicianForm);
