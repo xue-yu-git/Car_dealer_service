@@ -37,7 +37,9 @@ class AppointmentList extends React.Component {
                     } else {
                         app["vip"] = ""
                     }
-                    app["time"] = app["time"].slice(0, 5);
+                    if (app["time"] !== null) {
+                        app["time"] = app["time"].slice(0, 5);
+                    }
                 }
                 this.setState({ AppointmentArray: appointments });
             }
@@ -86,7 +88,7 @@ class AppointmentList extends React.Component {
             <div className="container">
                 <h2>All The Appointments</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="/appointments/new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add An Appointment</Link>
+                    <Link to="/appointments/new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add an Appointment</Link>
                     <Link to="/appointments/history" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Check Appointment Records for a Car</Link>
                 </div>
                 <div>

@@ -37,7 +37,9 @@ class AppointmentHistoryList extends React.Component {
         const vin_app_array = [];
         for (let car of cars) {
             if (car.vin === value_vin) {
-                car["time"] = car["time"].slice(0, 5);
+                if (car["time"] !== null) {
+                    car["time"] = car["time"].slice(0, 5);
+                }
                 vin_app_array.push(car);
             };
         }

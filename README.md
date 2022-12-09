@@ -32,19 +32,25 @@ GHI: localhost:3000 (React Front End)
 ### Service microservice
 ○  The urls and ports
 
-    ■ The A page: http://localhost:3000/shoes/
-        It has a table to show detailed information about all shoes, with a delete button at the end of each row.
-        Clicking the delete button will remove the corresponding pair of shoes. It will disappear immediately on the page.
+    ■ The list of all current apppointments: http://localhost:3000/appointments
+        - It has a table to show detailed information about all current appointments, with a cancel and a finished button at the end of each row.
+        - If a car is bought from here, "VIP" will be shown in the VIP column.
+        - Clicking a cancel button will change the appointment status to "canceled". The record will disappear immediately on the page.
+        - Clicking a finished button will change the appointment status to "finished". The record will disappear immediately on the page.
+        - The page has an "Add an Appointment" button that navigates to the form page to create a new appointment.
+        - The page has an "Check Appointment Records for a Car" button that navigates to the form page to create a new appointment.
 
-    ■ The form to create new shoes page: http://localhost:3000/shoes/new/
-        User can create a pair of new shoes here. When click "Create" button, the new information
-        will be saved and show up on both main and shoes pages.
+    ■ The form to create a new apppointment: http://localhost:3000/appointments/new
+        User can create a new apppointment here. When clicking "Create" button, it will navigate to the list page, where the new appointment information will be saved and show up.
+
+    ■ The list of appointment records for a specific car: http://localhost:3000/appointments/history
+        - It has a search bar at top. Put in the VIN of a car, all the appointment records for this car will show up at the table below.
 
 ○  API Documentation (CRUD routes)
 Appointment:
     Note: All apppointment records are saved for checking history. There is no "DELETE" feature for appointment.
 
-    ■ GET the list of apppointment: http://localhost:8080/api/appointments/
+    ■ GET the list of apppointments: http://localhost:8080/api/appointments/
 
     ■ POST a new apppointment: http://localhost:8080/api/appointments/
         example:
@@ -56,7 +62,7 @@ Appointment:
             "reason": "repair window",
             "status": "submitted",
             "sold_here": false
-        } 
+        }
 
     ■ GET the detail of an apppointment, e.g. apppointment with href "/api/appointment/1/": http://localhost:8080/api/appointment/1/
 
@@ -67,6 +73,7 @@ Appointment:
             "technician_id":1,
         }
 Technician:
+
     ■ GET the list of technicians: http://localhost:8080/api/technicians/
 
     ■ POST a newtechnician: http://localhost:8080/api/technicians/
