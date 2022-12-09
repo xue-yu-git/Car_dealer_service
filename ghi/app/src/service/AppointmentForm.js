@@ -47,6 +47,7 @@ class AppointmentForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.technicians;
+        data["time"] = data["time"] + ":00"
         const appUrl = 'http://localhost:8080/api/appointments/';
         const fetchConfig = {
             method: "post",
@@ -86,7 +87,6 @@ class AppointmentForm extends React.Component {
     }
     handleTimeChange(event) {
         const value = event.target.value;
-        value = value + ":ss"
         this.setState({ time: value })
     }
     handleTechnicianChange(event) {
