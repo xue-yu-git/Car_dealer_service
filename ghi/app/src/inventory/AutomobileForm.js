@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function withExtras(Component) {
     return (props) => (
-        <Component {...props} vuseNavigate={useNavigate()} />
+        <Component {...props} useNavigate={useNavigate()} />
     );
 }
 

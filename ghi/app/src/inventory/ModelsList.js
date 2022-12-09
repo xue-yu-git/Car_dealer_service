@@ -47,7 +47,7 @@ class ModelsList extends React.Component {
             <div className="container">
                 <h2>All The Models</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="/models/new" className="btn btn-primary btn-lg px-4 gap-3">Add A Model</Link>
+                    <Link to="/models/new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add A Model</Link>
                 </div>
                 <div>
                     <table className="table table-striped">
@@ -64,7 +64,7 @@ class ModelsList extends React.Component {
                                     <tr key={model.href}>
                                         <td>{model.name}</td>
                                         <td>{model.manufacturer.name}</td>
-                                        <td><img src={model.picture_url} /></td>
+                                        <td><img src={model.picture_url} alt={model.name} style={{ maxHeight: "200px", maxWidth: "200px" }} /></td>
 
                                     </tr>
                                 );

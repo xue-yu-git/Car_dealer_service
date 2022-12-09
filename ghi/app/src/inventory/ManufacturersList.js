@@ -30,7 +30,7 @@ class ManufacturersList extends React.Component {
             <div className="container">
                 <h2>All The Manufacturers</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="/manufacturers/new" className="btn btn-primary btn-lg px-4 gap-3">Add A Manufacturers</Link>
+                    <Link to="/manufacturers/new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add A Manufacturers</Link>
                 </div>
                 <div>
                     <table className="table table-striped">

@@ -30,7 +30,7 @@ class CustomersList extends React.Component {
             <div className="container">
                 <h2>All The Customer</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">Add A Customer</Link>
+                    <Link to="new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add A Customer</Link>
                 </div>
                 <div>
                     <table className="table table-striped">

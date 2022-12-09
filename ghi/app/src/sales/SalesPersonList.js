@@ -30,8 +30,8 @@ class SalesPersonList extends React.Component {
             <div className="container">
                 <h2>All The Salespeople</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">Add A Salesperson</Link>
-                    <Link to="history" className="btn btn-primary btn-lg px-4 gap-3">See sales filtered by salesperson</Link>
+                    <Link to="new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add A Salesperson</Link>
+                    <Link to="history" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">See sales filtered by salesperson</Link>
                 </div>
                 <div>
                     <table className="table table-striped">
