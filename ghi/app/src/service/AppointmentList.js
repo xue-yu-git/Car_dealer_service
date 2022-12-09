@@ -114,8 +114,8 @@ class AppointmentList extends React.Component {
                                         <td>{appointment.reason}</td>
                                         <td>{appointment.vip}</td>
                                         <td>
-                                            <button onClick={this.handleCancel.bind(this, appointment)}>Cancel</button>
-                                            <button onClick={this.handleFinish.bind(this, appointment)}>Finished</button>
+                                            <button type="button" className="btn btn-danger btn-sm" onClick={this.handleCancel.bind(this, appointment)}>Cancel</button>
+                                            <button type="button" className="btn btn-success btn-sm" onClick={this.handleFinish.bind(this, appointment)}>Finished</button>
                                         </td>
                                     </tr>
                                 );
