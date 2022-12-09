@@ -1,4 +1,11 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
+function withExtras(Component) {
+    return (props) => (
+        <Component {...props} useNavigate={useNavigate()} />
+    );
+}
 
 class ManufacturersForm extends React.Component {
     constructor(props) {
@@ -31,6 +38,7 @@ class ManufacturersForm extends React.Component {
                 name: '',
             };
             this.setState(cleared);
+            this.props.useNavigate(`/manufacturers/`)
         }
     }
 
@@ -59,4 +67,4 @@ class ManufacturersForm extends React.Component {
     }
 }
 
-export default ManufacturersForm;
+export default withExtras(ManufacturersForm);

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 
 
+
 class ManufacturersList extends React.Component {
     constructor(props) {
         super(props);

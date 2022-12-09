@@ -13,6 +13,19 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
             </li>
+
+
+            <li className="nav-item dropdown">
+              <button className="nav-link dropdown-toggle bg-success" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Manufacturers
+              </button>
+              <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><NavLink className="dropdown-item" aria-current="page" to="manufacturers">Manufacturers List</NavLink></li>
+                <li><NavLink className="dropdown-item" aria-current="page" to="manufacturers/new">New Manufacturer</NavLink></li>
+              </ul>
+            </li>
+
+
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="manufacturers">Manufacturers</NavLink>
             </li>

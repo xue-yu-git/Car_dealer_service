@@ -1,9 +1,9 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function withExtras(Component) {
     return (props) => (
-        <Component {...props} params={useParams()} useNavigate={useNavigate()} />
+        <Component {...props} vuseNavigate={useNavigate()} />
     );
 }
 

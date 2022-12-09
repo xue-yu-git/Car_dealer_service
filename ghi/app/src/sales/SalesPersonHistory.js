@@ -6,22 +6,25 @@ class SalesHistoryList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            salespersons: [],
             SaleHistoryArray: [],
             FilteredHis: [],
         };
-        this.handleChangeVin = this.handleChangeVin.bind(this);
+        this.handleChangeName = this.handleChangeName.bind(this);
     }
 
     async componentDidMount() {
-        const url = 'http://localhost:8090/api/sales/';
+        const soldUrl = 'http://localhost:8090/api/sales/';
+        const salespersonUrl = 'http://localhost:8090/api/salespersons/'
 
         try {
-            const response = await fetch(url);
-            if (response.ok) {
-                const data = await response.json();
-                this.setState({
-                    SaleHistoryArray: data.sales,
-                });
+            const soldResponse = await fetch(soldUrl);
+            const salesPersonResponse = await fetch(salespersonUrl);
+            if (soldResponse.ok) {
+                const soldData = await soldResponse.json();
+                const salesPersonData = await salesPersonResponse.json();
+                this.setState({ SaleHistoryArray: soldData.sales, });
+                this.setState({ salespersons: salesPersonData.salespersons, });
             }
         } catch (e) {
             console.error(e);
@@ -29,9 +32,9 @@ class SalesHistoryList extends React.Component {
     }
 
 
-    handleChangeVin(searchName) {
+    handleChangeName(searchName) {
         const name_input = searchName.target.value;
-        console.log(name_input)
+        console.log('name input', name_input)
 
         const sales = this.state.SaleHistoryArray;
         const name_sale_array = [];
@@ -53,19 +56,19 @@ class SalesHistoryList extends React.Component {
                     <h1></h1>
                 </div>
                 <div className="row">
-
                     <label htmlFor="header-search">
-                        <span className="visually-hidden">Search sale history</span>
+                        <span className="visually-hidden">Enter the Salespersons Exact Name</span>
                     </label>
-                    <input
-                        value={this.searchVIn}
-                        onInput={this.handleChangeVin}
-                        type="text"
-                        id="header-search"
-                        placeholder="Search Sale history"
-                        name="s"
-                    />
-
+                    <select value={this.searchName} onChange={this.handleChangeName} id="header-search" placeholder="Search Sale history" name="s" className="form-select">
+                        <option value="">Choose a Salesperson</option>
+                        {this.state.salespersons.map((salesperson) => {
+                            return (
+                                <option key={salesperson.id} value={salesperson.name}>
+                                    {salesperson.name}
+                                </option>
+                            );
+                        })}
+                    </select>
                 </div>
                 <div className="container">
                     <h2>Sale history</h2>
