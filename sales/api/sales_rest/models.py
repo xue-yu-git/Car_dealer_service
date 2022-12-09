@@ -37,5 +37,5 @@ class Sale(models.Model):
     automobile = models.ForeignKey(
         AutomobileVO,
         related_name="sales",
-        on_delete=models.PROTECT,
+        on_delete=models.DO_NOTHING,
     )

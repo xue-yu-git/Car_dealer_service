@@ -47,7 +47,7 @@ def api_delete_salespersons(request,pk):
                 encoder=SalespersonEncoder,
                 safe=False,
             )
-        except SalespersonEncoder.DoesNotExist:
+        except Salesperson.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
 
 @require_http_methods(["GET", "POST"])
@@ -85,7 +85,7 @@ def api_delete_customers(request,pk):
                 encoder=CustomerEncoder,
                 safe=False,
             )
-        except CustomerEncoder.DoesNotExist:
+        except Customer.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
 
 @require_http_methods(["GET", "POST"])
@@ -132,7 +132,7 @@ def api_delete_sales(request,pk):
                 encoder=SaleEncoder,
                 safe=False,
             )
-        except SaleEncoder.DoesNotExist:
+        except Sale.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
 
 @require_http_methods("GET")
@@ -143,3 +143,17 @@ def api_automobilesVO(request):
             {"automobiles": automobiles},
             encoder=AutomobileVOEncoder,
         )
+
+@require_http_methods(["DELETE"])
+def api_delete_automobileVO(request,pk):
+    if request.method == "DELETE":
+        try:
+            auto = AutomobileVO.objects.get(id=pk)
+            auto.delete()
+            return JsonResponse(
+                auto,
+                encoder=AutomobileVOEncoder,
+                safe=False,
+            )
+        except AutomobileVO.DoesNotExist:
+            return JsonResponse({"message": "Does not exist"})

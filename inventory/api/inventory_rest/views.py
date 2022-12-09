@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
+import requests
 
 from .encoders import (
     AutomobileEncoder,
@@ -203,7 +204,10 @@ def api_vehicle_model(request, pk):
     elif request.method == "DELETE":
         try:
             model = VehicleModel.objects.get(id=pk)
-            model.delete()
+            count, _ = model.delete()
+            if count > 0:
+                deleteVO = f'http://localhost:8090/api/auto/{pk}'
+                requests.delete(deleteVO)
             return JsonResponse(
                 model,
                 encoder=VehicleModelEncoder,

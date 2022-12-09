@@ -31,7 +31,7 @@ class SaleForm extends React.Component {
     async componentDidMount() {
         const customerUrl = "http://localhost:8090/api/customers/";
         const salespersonUrl = "http://localhost:8090/api/salespersons/";
-        const automobileUrl = "http://localhost:8090/api/auto/";
+        const automobileUrl = "http://localhost:8100/api/automobiles/";
 
         const customerResponse = await fetch(customerUrl);
         const salespersonResponse = await fetch(salespersonUrl);
@@ -44,7 +44,7 @@ class SaleForm extends React.Component {
 
             this.setState({ customers: customerData.customers });
             this.setState({ salespersons: salespersonData.salespersons });
-            this.setState({ automobiles: automobileData.automobiles });
+            this.setState({ automobiles: automobileData.autos });
         }
     }
 
@@ -54,7 +54,7 @@ class SaleForm extends React.Component {
         delete data.customers;
         delete data.salespersons
         delete data.automobiles
-        console.log(data)
+
         const saleUrl = "http://localhost:8090/api/sales/";
         const fetchConfig = {
             method: "post",
@@ -63,7 +63,7 @@ class SaleForm extends React.Component {
                 "Content-Type": "application/json",
             },
         };
-        console.log("sales post fetch", fetchConfig)
+
         const salePostResponse = await fetch(saleUrl, fetchConfig);
 
         if (salePostResponse.ok) {
@@ -76,29 +76,14 @@ class SaleForm extends React.Component {
             const inventoryDeleteResponse = await fetch(deleteURL, fetchConfig);
 
             if (inventoryDeleteResponse.ok) {
-                let postInfo = { 'vin': vin }
-                console.log("post info", postInfo)
-                const soldPostURL = `http://localhost:8100/api/sold/`;
-                const fetchConfig = {
-                    method: "post",
-                    body: JSON.stringify(postInfo),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                };
-                console.log(" sold car fetch info", fetchConfig)
-                const soldPostResponse = await fetch(soldPostURL, fetchConfig);
 
-                if (soldPostResponse.ok) {
-                    console.log('good')
-                    this.setState({
-                        price: "",
-                        customer_id: "",
-                        salesperson_id: "",
-                        automobile_id: "",
-                    });
-                    this.props.useNavigate(`/sales/`);
-                }
+                this.setState({
+                    price: "",
+                    customer_id: "",
+                    salesperson_id: "",
+                    automobile_id: "",
+                });
+                this.props.useNavigate(`/sales/`);
             }
 
 
