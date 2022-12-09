@@ -86,6 +86,7 @@ class AppointmentForm extends React.Component {
     }
     handleTimeChange(event) {
         const value = event.target.value;
+        value = value + ":ss"
         this.setState({ time: value })
     }
     handleTechnicianChange(event) {
@@ -117,8 +118,8 @@ class AppointmentForm extends React.Component {
                                 <label htmlFor="date">Date(yyyy-mm-dd)</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input value={this.state.time} onChange={this.handleTimeChange} placeholder="hh:mm:ss" required type="text" name="time" id="time" className="form-control" />
-                                <label htmlFor="time">Time(hh:mm:ss)</label>
+                                <input value={this.state.time} onChange={this.handleTimeChange} placeholder="hh:mm" required type="text" name="time" id="time" className="form-control" />
+                                <label htmlFor="time">Time(hh:mm)</label>
                             </div>
                             <div className="mb-3">
                                 <select value={this.state.technician_id} onChange={this.handleTechnicianChange} id="technician" className="form-select"  >
