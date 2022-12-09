@@ -55,21 +55,21 @@ class AppointmentHistoryList extends React.Component {
                 <div className="row">
 
                     <label htmlFor="header-search">
-                        <span className="visually-hidden">Search appointment history</span>
+                        <span className="visually-hidden">Search appointment for a car</span>
                     </label>
                     <input
                         value={this.searchVIn}
                         onInput={this.handleChangeVin}
                         type="text"
                         id="header-search"
-                        placeholder="Search appointment history"
+                        placeholder="Search appointment for a car"
                         name="s"
                     />
                     {/* <button type="submit">Search</button> */}
 
                 </div>
                 <div className="container">
-                    <h2>Service history </h2>
+                    <h2>All appointment records for a car</h2>
                     <div>
                         <table className="table table-striped">
                             <thead>

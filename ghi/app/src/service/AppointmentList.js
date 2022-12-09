@@ -88,7 +88,7 @@ class AppointmentList extends React.Component {
                     <Link to="/appointments/new" className="btn btn-primary btn-lg px-4 gap-3">Add An Appointment</Link>
                 </div>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
-                    <Link to="/appointments/history" className="btn btn-primary btn-lg px-4 gap-3">Check Appointment History for a Car</Link>
+                    <Link to="/appointments/history" className="btn btn-primary btn-lg px-4 gap-3">Check Appointment Records for a Car</Link>
                 </div>
                 <div>
                     <table className="table table-striped">
