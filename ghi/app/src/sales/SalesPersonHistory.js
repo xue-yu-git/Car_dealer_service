@@ -53,12 +53,9 @@ class SalesHistoryList extends React.Component {
         return (
             <div>
                 <div>
-                    <h1></h1>
+                    <h1>Sale history</h1>
                 </div>
                 <div className="row">
-                    <label htmlFor="header-search">
-                        <span className="visually-hidden">Enter the Salespersons Exact Name</span>
-                    </label>
                     <select value={this.searchName} onChange={this.handleChangeName} id="header-search" placeholder="Search Sale history" name="s" className="form-select">
                         <option value="">Choose a Salesperson</option>
                         {this.state.salespersons.map((salesperson) => {
@@ -71,7 +68,6 @@ class SalesHistoryList extends React.Component {
                     </select>
                 </div>
                 <div className="container">
-                    <h2>Sale history</h2>
                     <div>
                         <table className="table table-striped">
                             <thead>
@@ -80,6 +76,7 @@ class SalesHistoryList extends React.Component {
                                     <th>VIN</th>
                                     <th>Customer Name</th>
                                     <th>Price</th>
+                                    <th>Commission</th>
 
                                 </tr>
                             </thead>
@@ -91,6 +88,7 @@ class SalesHistoryList extends React.Component {
                                             <td>{sale.automobile.vin}</td>
                                             <td>{sale.customer.name}</td>
                                             <td>${sale.price}</td>
+                                            <td>${sale.price * .01}</td>
                                         </tr>
                                     );
                                 })}

@@ -47,7 +47,7 @@ class AutomobileList extends React.Component {
     render() {
         return (
             <div className="container">
-                <h2>All The Automobile</h2>
+                <h2>Automobile Inventory</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
                     <Link to="new" className="btn btn-outline-success btn-lg btn-sm px-4 gap-3">Add A Automobile</Link>
                 </div>
