@@ -28,7 +28,7 @@ class SalesPersonList extends React.Component {
     render() {
         return (
             <div className="container">
-                <h2>All The Salesperson</h2>
+                <h2>All The Salespeople</h2>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-left">
                     <Link to="new" className="btn btn-primary btn-lg px-4 gap-3">Add A Salesperson</Link>
                     <Link to="history" className="btn btn-primary btn-lg px-4 gap-3">See sales filtered by salesperson</Link>
