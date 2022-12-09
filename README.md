@@ -16,8 +16,7 @@ Sales - Jeffery
 
 ## Application Diagram
 
-Put image or link to application diagram here. Identify your VOs here in the diagram.
-
+[a relative link](diagram.png)
 
 ## Services
 
@@ -27,10 +26,37 @@ GHI: localhost:3000 (React Front End)
 ### Inventory microservice
 ○  The urls and ports
 
-○  API Documentation (CRUD routes)
+   Manufacturer:
+
+    ■ The list of all manufacturer: http://localhost:3000/manufacturers
+        - It has a table to show detailed information of all technicians.
+        - It has an "Add a manufacturer" button that navigates to the form page to create a new manufacturer.
+
+    ■ The form to add a new manufacturer: http://localhost:3000/manufacturers/new
+        - User can add a new manufacturer here. When clicking "Create" button, it will navigate to the manufacturer list page, where the new manufacturer information will show up.
+
+   Vehicle Model:
+
+    ■ The list of all models: http://localhost:3000/models
+        - It has a table to show detailed information of all models.
+        - It has an "Add a model" button that navigates to the form page to create a new model.
+
+    ■ The form to add a new manufacturer: http://localhost:3000/manufacturers/new
+        - User can add a new model here. When clicking "Create" button, it will navigate to the model list page, where the new models information will show up.
+
+   Automobile:
+
+    ■ The list of all automobiles: http://localhost:3000/automobiles
+        - It has a table to show detailed information of all automobiles.
+        - It has an "Add an Automobile" button that navigates to the form page to create a new automobile.
+
+    ■ The form to add a new automobile: http://localhost:3000/automobiles/new
+        - User can add a new automobile here. When clicking "Create" button, it will navigate to the automobile list page, where the new automobile information will show up.
 
 ### Service microservice
 ○  The urls and ports
+
+   Appointment:
 
     ■ The list of all current apppointments: http://localhost:3000/appointments
         - It has a table to show detailed information about all current appointments, with a cancel and a finished button at the end of each row.
@@ -41,13 +67,23 @@ GHI: localhost:3000 (React Front End)
         - The page has an "Check Appointment Records for a Car" button that navigates to the form page to create a new appointment.
 
     ■ The form to create a new apppointment: http://localhost:3000/appointments/new
-        User can create a new apppointment here. When clicking "Create" button, it will navigate to the list page, where the new appointment information will be saved and show up.
+        - User can create a new apppointment here. When clicking "Create" button, it will navigate to the list page, where the new appointment information will show up.
 
     ■ The list of appointment records for a specific car: http://localhost:3000/appointments/history
         - It has a search bar at top. Put in the VIN of a car, all the appointment records for this car will show up at the table below.
 
+   Technician:
+
+    ■ The list of all technicians: http://localhost:3000/technicians
+        - It has a table to show detailed information of all technicians.
+        - It has an "Add a technician" button that navigates to the form page to create a new technician.
+
+    ■ The form to add a new technician: http://localhost:3000/technicians/new
+        - User can add a new technician here. When clicking "Create" button, it will navigate to the technician list page, where the new technician information will show up.
+
 ○  API Documentation (CRUD routes)
-Appointment:
+   Appointment:
+
     Note: All apppointment records are saved for checking history. There is no "DELETE" feature for appointment.
 
     ■ GET the list of apppointments: http://localhost:8080/api/appointments/
@@ -72,7 +108,7 @@ Appointment:
             "date": "2022-12-14",
             "technician_id":1,
         }
-Technician:
+   Technician:
 
     ■ GET the list of technicians: http://localhost:8080/api/technicians/
 
