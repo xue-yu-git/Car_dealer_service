@@ -204,10 +204,7 @@ def api_vehicle_model(request, pk):
     elif request.method == "DELETE":
         try:
             model = VehicleModel.objects.get(id=pk)
-            count, _ = model.delete()
-            if count > 0:
-                deleteVO = f'http://localhost:8090/api/auto/{pk}'
-                requests.delete(deleteVO)
+            model.delete()
             return JsonResponse(
                 model,
                 encoder=VehicleModelEncoder,
