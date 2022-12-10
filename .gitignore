@@ -1,4 +1,4 @@
-inventory_rest/key.py
+inventory/api/inventory_rest/key.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
