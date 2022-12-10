@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
 import requests
+from .acls import get_photo
+
 
 from .encoders import (
     AutomobileEncoder,
@@ -168,17 +170,19 @@ def api_vehicle_models(request):
             encoder=VehicleModelEncoder
         )
     else:
+        content = json.loads(request.body)
+        manufacturer_id = content["manufacturer_id"]
+        manufacturer = Manufacturer.objects.get(id=manufacturer_id)
+        content["manufacturer"] = manufacturer
+        photo = get_photo(content["manufacturer"].name, content['name'])
+        content.update(photo)
         try:
-            content = json.loads(request.body)
-            manufacturer_id = content["manufacturer_id"]
-            manufacturer = Manufacturer.objects.get(id=manufacturer_id)
-            content["manufacturer"] = manufacturer
             model = VehicleModel.objects.create(**content)
             return JsonResponse(
-                model,
-                encoder=VehicleModelEncoder,
-                safe=False,
-            )
+            model,
+            encoder=VehicleModelEncoder,
+            safe=False,
+        )
         except:
             response = JsonResponse(
                 {"message": "Could not create the vehicle model"}
