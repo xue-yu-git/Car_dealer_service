@@ -11,7 +11,7 @@ class ModelForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // picture_url: "",
+            picture_url: "",
             name: "",
             manufacturer_id: "",
             manufacturers: [],
@@ -19,7 +19,7 @@ class ModelForm extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangename = this.handleChangename.bind(this);
-        // this.handleChangePictureUrl = this.handleChangePictureUrl.bind(this);
+        this.handleChangePictureUrl = this.handleChangePictureUrl.bind(this);
         this.handleChangeManufacturer = this.handleChangeManufacturer.bind(this);
     }
 
@@ -38,7 +38,6 @@ class ModelForm extends React.Component {
         event.preventDefault();
         const data = { ...this.state };
         delete data.manufacturers;
-        console.log(data)
         const ModelUrl = "http://localhost:8100/api/models/";
         const fetchConfig = {
             method: "post",
@@ -53,7 +52,7 @@ class ModelForm extends React.Component {
             let model_response = await response.json();
             console.log(model_response)
             this.setState({
-                // picture_url: "",
+                picture_url: "",
                 name: "",
                 manufacturer_id: "",
             });
@@ -67,10 +66,11 @@ class ModelForm extends React.Component {
         this.setState({ name: value });
     }
 
-    // handleChangePictureUrl(event) {
-    //     const value = event.target.value;
-    //     this.setState({ picture_url: value });
-    // }
+    handleChangePictureUrl(event) {
+        const value = event.target.value;
+        this.setState({ picture_url: value });
+    }
+
     handleChangeManufacturer(event) {
         const value = event.target.value;
         this.setState({ manufacturer_id: value });
@@ -83,7 +83,7 @@ class ModelForm extends React.Component {
                     <div className="shadow p-4 mt-4">
                         <h1>Create a new Model</h1>
                         <form onSubmit={this.handleSubmit} id="create-model-form">
-                            {/* <div className="form-floating mb-3">
+                            <div className="form-floating mb-3">
                                 <input
                                     onChange={this.handleChangePictureUrl}
 
@@ -96,7 +96,7 @@ class ModelForm extends React.Component {
                                     className="form-control"
                                 />
                                 <label htmlFor="name">Picture Url</label>
-                            </div> */}
+                            </div>
                             <div className="form-floating mb-3">
                                 <input
                                     onChange={this.handleChangename}

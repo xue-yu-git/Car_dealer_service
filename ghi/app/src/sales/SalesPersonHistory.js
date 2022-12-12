@@ -34,8 +34,6 @@ class SalesHistoryList extends React.Component {
 
     handleChangeName(searchName) {
         const name_input = searchName.target.value;
-        console.log('name input', name_input)
-
         const sales = this.state.SaleHistoryArray;
         const name_sale_array = [];
         for (let sale of sales) {
