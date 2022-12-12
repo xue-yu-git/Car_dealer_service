@@ -20,8 +20,8 @@ Sales - Jeffery
 
 ## Services
 
-This can either be a separate section with the services, their URLs, and ports listed here or you can include it in the application diagram
 GHI: localhost:3000 (React Front End)
+All the page navigations are included in the navbar. There are also extra navigation buttons in the list pages for convenience.
 
 ### Inventory microservice
 ○  The urls and ports
@@ -56,7 +56,7 @@ GHI: localhost:3000 (React Front End)
 ### Service microservice
 ○  The urls and ports
 
-   Appointment:
+    Appointment:
 
     ■ The list of all current appointments: http://localhost:3000/appointments
         - It has a table to show detailed information about all current appointments, with a cancel and a finished button at the end of each row.
