@@ -174,8 +174,10 @@ def api_vehicle_models(request):
         manufacturer_id = content["manufacturer_id"]
         manufacturer = Manufacturer.objects.get(id=manufacturer_id)
         content["manufacturer"] = manufacturer
-        photo = get_photo(content["manufacturer"].name, content['name'])
-        content.update(photo)
+        print(content)
+        if 'picture_url' not in content:
+            photo = get_photo(content["manufacturer"].name, content['name'])
+            content.update(photo)
         try:
             model = VehicleModel.objects.create(**content)
             return JsonResponse(
